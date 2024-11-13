@@ -10,7 +10,7 @@ function UserTable({ onSelectUser }) {
   const [users, setUsers] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [editUser, setEditUser] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // Estado para controlar el modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const [formValues, setFormValues] = useState({
     firstName: '',
@@ -70,7 +70,7 @@ function UserTable({ onSelectUser }) {
   };
 
   const handleDeleteClick = () => {
-    setShowDeleteModal(true); // Mostrar el modal de confirmación
+    setShowDeleteModal(true);
   };
 
   const confirmDelete = async () => {
@@ -85,7 +85,7 @@ function UserTable({ onSelectUser }) {
       }
     }
     setSelectedRows([]);
-    setShowDeleteModal(false); // Ocultar el modal después de confirmar
+    setShowDeleteModal(false);
   };
 
   const openEditModal = (user) => {
@@ -123,15 +123,15 @@ function UserTable({ onSelectUser }) {
         prevUsers.map((user) => (user.id === editUser.id ? updatedUser : user))
       );
 
-      setEditUser(null); // Cierra el modal de edición
+      setEditUser(null);
     } catch (error) {
       console.error('Error updating user:', error);
     }
   };
 
   return (
-    <div className="card border-0 shadow-sm mt-4">
-      <div className="card-header d-flex justify-content-between">
+    <div className="card border-0 shadow mt-4">
+      <div className="card-header d-flex justify-content-between align-items-center">
         <button
           type="button"
           className="btn btn-outline-primary"
@@ -141,10 +141,9 @@ function UserTable({ onSelectUser }) {
           <i className="bi bi-pencil"></i> Editar
         </button>
 
-        {/* Usar el modal de confirmación para eliminar */}
         <button
           type="button"
-          className="btn btn-sm btn-outline-danger px-4 me-2"
+          className="btn btn-sm btn-outline-danger"
           onClick={handleDeleteClick}
           disabled={selectedRows.length === 0}
         >
@@ -152,8 +151,8 @@ function UserTable({ onSelectUser }) {
         </button>
       </div>
       <div className="card-body">
-        <table id="userTable" className="table table-hover table-light dataTable no-footer">
-          <thead>
+        <table id="userTable" className="table table-striped table-hover table-bordered">
+          <thead className="table-dark">
             <tr>
               <th><input type="checkbox" /></th>
               <th>Nombre</th>
@@ -185,14 +184,12 @@ function UserTable({ onSelectUser }) {
         </table>
       </div>
 
-      {/* Modal de confirmación de eliminación */}
       <DeleteConfirmationModal
         show={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={confirmDelete}
       />
 
-      {/* Modal de Edición */}
       {editUser && (
         <EditUserModal
           user={editUser}
