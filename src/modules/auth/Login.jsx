@@ -27,7 +27,7 @@ function Login({ onLogin }) {
       })
       .then((data) => {
         if (data.accessToken) {  // Usa accessToken en lugar de token
-          localStorage.setItem('token', data.accessToken);  // Almacena el token en localStorage
+          localStorage.setItem('token', data.accessToken);  
           onLogin(); // Llama a la función de autenticación
         } else {
           setError('Error: Usuario o contraseña incorrectos');

@@ -1,7 +1,6 @@
-// src/components/UserPost.jsx
 import React, { useState, useEffect } from 'react';
 
-function UserPost({ userId }) {
+function UserPost({ userId, onClose }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +27,10 @@ function UserPost({ userId }) {
   return (
     <div className="card mt-3">
       <div className="card-body">
-        <h3>Publicaciones de Usuario {userId}</h3>
+        <div className="d-flex justify-content-between align-items-center">
+          <h3>Publicaciones de Usuario {userId}</h3>
+          <button className="btn btn-sm btn-outline-danger" onClick={onClose}>Cerrar</button>
+        </div>
         {posts.length > 0 ? (
           <ul className="list-group list-group-flush">
             {posts.map((post) => (

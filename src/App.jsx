@@ -29,6 +29,10 @@ function App() {
     setSelectedUserId(userId);
   };
 
+  const handleCloseUserPost = () => {
+    setSelectedUserId(null); // Restablece el ID del usuario seleccionado para cerrar `UserPost`
+  };
+
   // Mostrar vista de inicio de sesión si el usuario no está autenticado
   if (!isAuthenticated) {
     return <Login onLogin={handleLogin} />;
@@ -40,7 +44,7 @@ function App() {
       <div className="container pt-5">
         <div className="row">
           <div className="col-sm-12 col-md-6">
-            <div className="dt-title">Listado de usuarios</div>
+            <div className="fs-1 fst-italic ">Listado de usuarios</div>
           </div>
           <div className="col-sm-12 col-md-6 mt-3">
             <div className="d-flex justify-content-end align-items-center">
@@ -55,11 +59,13 @@ function App() {
             </div>
           </div>
         </div>
-        {showFilter && <Filter onFilterChange={handleFilterChange} />}
+        {showFilter &&
+          <Filter onFilterChange={handleFilterChange} />
+        }
         <UserTable onSelectUser={handleUserSelect} />
 
         {/* Mostrar UserPost solo si se ha seleccionado un usuario */}
-        {selectedUserId && <UserPost userId={selectedUserId} />}
+        {selectedUserId && <UserPost userId={selectedUserId} onClose={handleCloseUserPost} />}
       </div>
     </>
   );
