@@ -6,19 +6,18 @@ function Navbar() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem('token'); // Obtenemos el token del almacenamiento local
+      const token = localStorage.getItem('token');
 
       if (token) {
         try {
           const response = await fetch('https://dummyjson.com/user/me', {
             method: 'GET',
             headers: {
-              'Authorization': `Bearer ${token}`, // Enviamos el token en el encabezado de autorización
+              'Authorization': `Bearer ${token}`,
             },
-            // credentials: 'include',
           });
           const data = await response.json();
-          setUser(data); // Almacenamos los datos del usuario en el estado
+          setUser(data);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -27,6 +26,12 @@ function Navbar() {
 
     fetchUserData();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Elimina el token de localStorage
+    setUser(null); // Reinicia el estado del usuario
+    window.location.reload(); // Refresca la página para regresar al estado de no autenticado
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -45,15 +50,24 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             {user ? (
-              <li className="nav-item d-flex align-items-center">
-                <img 
-                  src={user.image} 
-                  alt={`${user.firstName} ${user.lastName}`} 
-                  className="rounded-circle me-2" 
-                  style={{ width: '30px', height: '30px' }} 
-                />
-                <span className="navbar-text">Bienvenido, {user.firstName} {user.lastName}</span>
-              </li>
+              <>
+                <li className="nav-item d-flex align-items-center">
+                  <img 
+                    src={user.image} 
+                    alt={`${user.firstName} ${user.lastName}`} 
+                    className="rounded-circle me-2" 
+                    style={{ width: '30px', height: '30px' }} 
+                  />
+                  <span className="navbar-text me-3">
+                    Bienvenido, {user.firstName} {user.lastName}
+                  </span>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-outline-light" onClick={handleLogout}>
+                    Cerrar sesión
+                  </button>
+                </li>
+              </>
             ) : (
               <li className="nav-item">
                 <span className="navbar-text">Iniciar sesión</span>
