@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function UserPost({ userId, onClose }) {
+function UserPost({ userId, onClose, userName }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ function UserPost({ userId, onClose }) {
     <div className="card mt-3">
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center">
-          <h3>Publicaciones de Usuario {userId}</h3>
+          <h3>Publicaciones de Usuario {userName}</h3>
           <button className="btn btn-sm btn-outline-danger" onClick={onClose}>Cerrar</button>
         </div>
         {posts.length > 0 ? (

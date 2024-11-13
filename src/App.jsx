@@ -10,6 +10,7 @@ function App() {
   const [showFilter, setShowFilter] = useState(false);
   const [filters, setFilters] = useState({ age: '', gender: '' });
   const [selectedUserId, setSelectedUserId] = useState(null); // Estado para el ID del usuario seleccionado
+  const [selectedUserName, setSelectedUserName] = useState(null); // Estado para el ID del usuario seleccionado
 
   const toggleFilter = () => {
     setShowFilter((prev) => !prev);
@@ -25,8 +26,9 @@ function App() {
   };
 
   // Maneja la selección de un usuario desde UserTable
-  const handleUserSelect = (userId) => {
+  const handleUserSelect = (userId, userName) => {
     setSelectedUserId(userId);
+    setSelectedUserName(userName);
   };
 
   const handleCloseUserPost = () => {
@@ -65,7 +67,7 @@ function App() {
         <UserTable onSelectUser={handleUserSelect} />
 
         {/* Mostrar UserPost solo si se ha seleccionado un usuario */}
-        {selectedUserId && <UserPost userId={selectedUserId} onClose={handleCloseUserPost} />}
+        {selectedUserId && <UserPost userId={selectedUserId} userName={selectedUserName} onClose={handleCloseUserPost} />}
       </div>
     </>
   );

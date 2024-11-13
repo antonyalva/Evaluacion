@@ -165,7 +165,7 @@ function UserTable({ onSelectUser }) {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} onClick={() => onSelectUser(user.id)}>
+              <tr key={user.id} onClick={() => onSelectUser(user.id,user.firstName)}>
                 <td>
                   <input
                     type="checkbox"
